@@ -17,7 +17,7 @@
     'website': "http://www.qilinlab.com",
     'category': 'Uncategorized',
     'version': '1.0',
-    'images': ['images/main_1.png','images/main_screenshot.png'],
+    'images': ['images/main_1.jpg','images/main_screenshot.jpg'],
     # any module necessary for this one to work correctly
     'depends': ['base'],
 }
