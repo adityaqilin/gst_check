@@ -32,8 +32,6 @@ class Partner(models.Model):
 		
 	@api.onchange('vat')
 	def do_stuff(self):
-		#CAPITALIZE GST NUMBER
-		self.vat = self.vat.upper()
 		
 		#CHECK FORMAT AND SHOW WARNING
 		if not((self.vat)):
@@ -54,4 +52,11 @@ class Partner(models.Model):
 				'warning': {'title': 'Warning', 'message': 'Invalid GSTIN. Checksum validation failed. It means one or more characters are probably wrong.',},	
             }
 			#raise ValidationError("Invalid GSTIN. Checksum validation failed. It means one or more characters are probably wrong.")
+				
+		#CAPITALIZE GST NUMBER
+		try:
+			self.vat = self.vat.upper()	
+		except:
+			pass
+			
 				
