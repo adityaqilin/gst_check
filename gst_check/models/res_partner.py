@@ -32,29 +32,29 @@ class Partner(models.Model):
 		
 	@api.onchange('vat')
 	def do_stuff(self):
-		
-		#CHECK FORMAT AND SHOW WARNING
-		if not((self.vat)):
-			return
-		#record.vat = record.vat.upper()
-		if(len(self.vat)!=15):
-			return {
-				'warning': {'title': 'Warning', 'message': 'Invalid GSTIN. GSTIN number must be 15 digits. Please check.',},	
-            }
-			#raise ValidationError("Invalid GSTIN. GSTIN number must be 15 digits. Please check.")
-		if not(re.match("\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}", self.vat.upper())):
-			return {
-				'warning': {'title': 'Warning', 'message': 'Invalid GSTIN format.\r\n.GSTIN must be in the format nnAAAAAnnnnA_Z_ where n=number, A=alphabet, _=either.',},	
-            }
-			#raise ValidationError("Invalid GSTIN.\r\n.GSTIN must be in the format nnAAAAAnnnnA_Z_ where n=number, A=alphabet, _=either.");
-		if not(Partner.check_gstin_chksum(self.vat)):
-			return {
-				'warning': {'title': 'Warning', 'message': 'Invalid GSTIN. Checksum validation failed. It means one or more characters are probably wrong.',},	
-            }
-			#raise ValidationError("Invalid GSTIN. Checksum validation failed. It means one or more characters are probably wrong.")
-				
-		#CAPITALIZE GST NUMBER
 		try:
+			#CHECK FORMAT AND SHOW WARNING
+			if not((self.vat)):
+				return
+			#record.vat = record.vat.upper()
+			if(len(self.vat)!=15):
+				return {
+					'warning': {'title': 'Warning', 'message': 'Invalid GSTIN. GSTIN number must be 15 digits. Please check.',},	
+				}
+				#raise ValidationError("Invalid GSTIN. GSTIN number must be 15 digits. Please check.")
+			if not(re.match("\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}", self.vat.upper())):
+				return {
+					'warning': {'title': 'Warning', 'message': 'Invalid GSTIN format.\r\n.GSTIN must be in the format nnAAAAAnnnnA_Z_ where n=number, A=alphabet, _=either.',},	
+				}
+				#raise ValidationError("Invalid GSTIN.\r\n.GSTIN must be in the format nnAAAAAnnnnA_Z_ where n=number, A=alphabet, _=either.");
+			if not(Partner.check_gstin_chksum(self.vat)):
+				return {
+					'warning': {'title': 'Warning', 'message': 'Invalid GSTIN. Checksum validation failed. It means one or more characters are probably wrong.',},	
+				}
+				#raise ValidationError("Invalid GSTIN. Checksum validation failed. It means one or more characters are probably wrong.")
+					
+			#CAPITALIZE GST NUMBER
+	
 			self.vat = self.vat.upper()	
 		except:
 			pass
